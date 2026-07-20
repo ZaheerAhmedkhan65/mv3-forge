@@ -1,0 +1,37 @@
+{
+  "name": "extension-forge",
+  "version": "0.0.0",
+  "private": true,
+  "description": "A monorepo for building cross-browser extensions with modern tooling",
+  "keywords": [
+    "extension",
+    "chrome",
+    "browser",
+    "extension-forge",
+    "manifest-v3",
+    "typescript"
+  ],
+  "license": "MIT",
+  "author": "",
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "format": "prettier --write \"**/*.{ts,js,json,md}\"",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "turbo": "latest",
+    "husky": "^9.0.0",
+    "eslint": "^8.0.0",
+    "@eslint/js": "^8.0.0",
+    "typescript-eslint": "^7.0.0",
+    "prettier": "^3.0.0"
+  },
+  "engines": {
+    "node": ">=18",
+    "pnpm": ">=8"
+  },
+  "packageManager": "pnpm@9.1.0"
+}

@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "ignoreDeprecations": "6.0",
+    "baseUrl": ".",
+    "paths": {
+      "@extension-forge/shared": ["packages/shared/src/index.ts"],
+      "@extension-forge/core": ["packages/core/src/index.ts"],
+      "@extension-forge/cli": ["packages/cli/src/index.ts"]
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "name": "@extension-forge/core",
+  "version": "0.1.0",
+  "description": "Core project generation for extension-forge",
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.mjs"
+    }
+  },
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "lint": "eslint src --fix"
+  },
+  "devDependencies": {
+    "tsup": "^8.0.0",
+    "typescript": "^5.0.0",
+    "@types/node": "^20.0.0"
+  },
+  "dependencies": {
+    "@extension-forge/shared": "workspace:*"
+  }
+}

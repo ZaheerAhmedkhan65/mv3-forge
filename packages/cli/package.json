@@ -1,0 +1,36 @@
+{
+  "name": "@extension-forge/cli",
+  "version": "0.1.0",
+  "description": "CLI for extension-forge",
+  "bin": {
+    "extension-forge": "./dist/index.mjs",
+    "create-extension-forge": "./dist/index.mjs"
+  },
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.mjs"
+    }
+  },
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "lint": "eslint src --fix"
+  },
+  "devDependencies": {
+    "tsup": "^8.0.0",
+    "typescript": "^5.0.0",
+    "@types/node": "^20.0.0"
+  },
+  "dependencies": {
+    "@extension-forge/core": "workspace:*",
+    "@extension-forge/shared": "workspace:*",
+    "commander": "^11.0.0",
+    "@clack/prompts": "^0.7.0",
+    "picocolors": "^1.0.0"
+  }
+}
