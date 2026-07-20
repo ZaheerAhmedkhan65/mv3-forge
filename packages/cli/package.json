@@ -1,6 +1,6 @@
 {
   "name": "mv3-forge",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A CLI tool for creating Manifest V3 browser extensions",
   "bin": {
     "mv3-forge": "./dist/index.js",
@@ -30,6 +30,14 @@
     "typescript"
   ],
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ZaheerAhmedkhan65/mv3-forge.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ZaheerAhmedkhan65/mv3-forge/issues"
+  },
+  "homepage": "https://github.com/ZaheerAhmedkhan65/mv3-forge#readme",
   "engines": {
     "node": ">=18"
   }
