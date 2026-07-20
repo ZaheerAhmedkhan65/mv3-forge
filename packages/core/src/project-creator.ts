@@ -1,9 +1,8 @@
-import { Logger, exists, isDirectory, isEmptyDirectory, ensureDir } from '@extension-forge/shared';
+import { Logger, exists, isEmptyDirectory, ensureDir } from '@extension-forge/shared';
 import { TemplateManager } from './template-manager.js';
 import { ManifestGenerator } from './manifest-generator.js';
 import { PackageJsonGenerator } from './package-json-generator.js';
 import type { ProjectOptions, TemplateContext } from './types.js';
-import { join } from 'path';
 
 const logger = new Logger();
 

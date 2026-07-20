@@ -2,7 +2,7 @@ import { Command } from 'commander';
 import picocolors from 'picocolors';
 import { intro, outro, select, text, isCancel, cancel } from '@clack/prompts';
 import { ProjectCreator } from '@extension-forge/core';
-import { DEFAULT_TEMPLATE, TEMPLATES } from '@extension-forge/shared';
+import { TEMPLATES } from '@extension-forge/shared';
 import { isValidProjectName } from '@extension-forge/shared';
 
 const program = new Command();

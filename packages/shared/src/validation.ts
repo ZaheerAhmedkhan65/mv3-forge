@@ -20,6 +20,7 @@ export function normalizeTemplate(template: string): Template {
 
 export function isValidDirectoryName(name: string): boolean {
   // Must not contain path separators or invalid characters
+  // eslint-disable-next-line no-control-regex
   const invalidChars = /[<>:"/\\|?*\x00-\x1F]/;
   return !invalidChars.test(name);
 }

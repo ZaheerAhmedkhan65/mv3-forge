@@ -2,7 +2,7 @@ import { copyDirRecursive, exists, readdirRecursive } from '@extension-forge/sha
 import { TemplateContext } from './types.js';
 import { Template } from '@extension-forge/shared';
 import { promises as fs } from 'fs';
-import { join, dirname, basename } from 'path';
+import { join, dirname } from 'path';
 
 export class TemplateManager {
   private templatesDir: string;
