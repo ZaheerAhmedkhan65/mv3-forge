@@ -1,36 +1,36 @@
 {
-  "name": "@extension-forge/cli",
+  "name": "extension-forge",
   "version": "0.1.0",
-  "description": "CLI for extension-forge",
+  "description": "A CLI tool for creating browser extensions",
   "bin": {
-    "extension-forge": "./dist/index.mjs",
-    "create-extension-forge": "./dist/index.mjs"
+    "extension-forge": "./dist/index.js",
+    "create-extension-forge": "./dist/index.js"
   },
-  "main": "./dist/index.mjs",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.mjs"
-    }
-  },
-  "files": ["dist"],
+  "main": "./dist/index.js",
+  "type": "module",
+  "files": [
+    "dist",
+    "templates"
+  ],
   "scripts": {
     "build": "tsup",
-    "dev": "tsup --watch",
-    "lint": "eslint src --fix"
-  },
-  "devDependencies": {
-    "tsup": "^8.0.0",
-    "typescript": "^5.0.0",
-    "@types/node": "^20.0.0"
+    "dev": "tsup --watch"
   },
   "dependencies": {
-    "@extension-forge/core": "workspace:*",
-    "@extension-forge/shared": "workspace:*",
     "commander": "^11.0.0",
     "@clack/prompts": "^0.7.0",
     "picocolors": "^1.0.0"
+  },
+  "keywords": [
+    "extension",
+    "chrome",
+    "browser",
+    "extension-forge",
+    "manifest-v3",
+    "typescript"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
   }
 }

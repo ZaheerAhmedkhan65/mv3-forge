@@ -1,18 +1,17 @@
 {
   "name": "extension-forge",
-  "version": "0.0.0",
-  "private": true,
-  "description": "A monorepo for building cross-browser extensions with modern tooling",
-  "keywords": [
-    "extension",
-    "chrome",
-    "browser",
-    "extension-forge",
-    "manifest-v3",
-    "typescript"
+  "version": "0.1.0",
+  "description": "A CLI tool for creating browser extensions",
+  "bin": {
+    "extension-forge": "./packages/cli/dist/index.mjs",
+    "create-extension-forge": "./packages/cli/dist/index.mjs"
+  },
+  "files": [
+    "packages/cli/dist",
+    "packages/core/dist",
+    "packages/shared/dist",
+    "templates"
   ],
-  "license": "MIT",
-  "author": "",
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
@@ -29,6 +28,20 @@
     "typescript-eslint": "^7.0.0",
     "prettier": "^3.0.0"
   },
+  "dependencies": {
+    "commander": "^11.0.0",
+    "@clack/prompts": "^0.7.0",
+    "picocolors": "^1.0.0"
+  },
+  "keywords": [
+    "extension",
+    "chrome",
+    "browser",
+    "extension-forge",
+    "manifest-v3",
+    "typescript"
+  ],
+  "license": "MIT",
   "engines": {
     "node": ">=18",
     "pnpm": ">=8"
