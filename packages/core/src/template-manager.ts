@@ -1,6 +1,6 @@
-import { copyDirRecursive, exists, readdirRecursive } from '@extension-forge/shared';
+import { copyDirRecursive, exists, readdirRecursive } from '@mv3-forge/shared';
 import { TemplateContext } from './types.js';
-import { Template } from '@extension-forge/shared';
+import { Template } from '@mv3-forge/shared';
 import { promises as fs } from 'fs';
 import { join, dirname } from 'path';
 
@@ -49,7 +49,7 @@ export class TemplateManager {
       const filePath = join(targetDir, file);
       const content = await fs.readFile(filePath, 'utf-8');
       const processed = this.renderTemplate(content, context);
-      
+
       // Determine if we should write as JSON or as plain text
       if (file.endsWith('.json')) {
         const parsed = JSON.parse(processed);

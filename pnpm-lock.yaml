@@ -32,10 +32,10 @@ importers:
       '@clack/prompts':
         specifier: ^0.7.0
         version: 0.7.0
-      '@extension-forge/core':
+      '@mv3-forge/core':
         specifier: workspace:*
         version: link:../core
-      '@extension-forge/shared':
+      '@mv3-forge/shared':
         specifier: workspace:*
         version: link:../shared
       commander:
@@ -57,7 +57,7 @@ importers:
 
   packages/core:
     dependencies:
-      '@extension-forge/shared':
+      '@mv3-forge/shared':
         specifier: workspace:*
         version: link:../shared
     devDependencies:

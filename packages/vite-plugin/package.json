@@ -1,27 +1,29 @@
 {
-  "name": "@extension-forge/vite-plugin",
-  "version": "0.1.0",
-  "description": "Vite plugin for extension-forge (reserved for future milestones)",
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
-    }
-  },
-  "files": ["dist"],
-  "scripts": {
-    "build": "tsup",
-    "dev": "tsup --watch",
-    "lint": "eslint src --fix"
-  },
-  "devDependencies": {
-    "tsup": "^8.0.0",
-    "typescript": "^5.0.0",
-    "@types/node": "^20.0.0",
-    "vite": "^5.0.0"
-  },
-  "dependencies": {}
+    "name": "@mv3-forge/vite-plugin",
+    "version": "0.1.0",
+    "description": "Vite plugin for mv3-forge (reserved for future milestones)",
+    "main": "./dist/index.js",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "default": "./dist/index.js"
+        }
+    },
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "build": "tsup",
+        "dev": "tsup --watch",
+        "lint": "eslint src --fix"
+    },
+    "devDependencies": {
+        "tsup": "^8.0.0",
+        "typescript": "^5.0.0",
+        "@types/node": "^20.0.0",
+        "vite": "^5.0.0"
+    },
+    "dependencies": {}
 }
