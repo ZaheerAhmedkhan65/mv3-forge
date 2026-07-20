@@ -1,4 +1,4 @@
-# extension-forge
+# mv3-forge
 
 A monorepo for building cross-browser extensions with modern tooling.
 
@@ -6,10 +6,10 @@ A monorepo for building cross-browser extensions with modern tooling.
 
 ```bash
 # Using pnpm
-pnpm create extension-forge my-extension
+pnpm create mv3-forge my-extension
 
 # Or using npx
-npx extension-forge create my-extension
+npx mv3-forge create my-extension
 ```
 
 ## Quick Start
@@ -32,11 +32,11 @@ Then load the extension in Chrome via `chrome://extensions` using the generated 
 
 ## Packages
 
-- `@extension-forge/cli` - Command-line interface
-- `@extension-forge/core` - Core project generation logic
-- `@extension-forge/shared` - Shared utilities
-- `@extension-forge/testing` - Testing utilities (coming soon)
-- `@extension-forge/vite-plugin` - Vite plugin for extension development (coming soon)
+- `mv3-forge` - Command-line interface
+- `@mv3-forge/core` - Core project generation logic
+- `@mv3-forge/shared` - Shared utilities
+- `@mv3-forge/testing` - Testing utilities (coming soon)
+- `@mv3-forge/vite-plugin` - Vite plugin for extension development (coming soon)
 
 ## Development
 

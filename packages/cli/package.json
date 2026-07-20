@@ -1,10 +1,10 @@
 {
-  "name": "@extension-forge/cli",
+  "name": "mv3-forge",
   "version": "0.1.0",
-  "description": "A CLI tool for creating browser extensions",
+  "description": "A CLI tool for creating Manifest V3 browser extensions",
   "bin": {
-    "extension-forge": "./dist/index.js",
-    "create-extension-forge": "./dist/index.js"
+    "mv3-forge": "./dist/index.js",
+    "create-mv3-forge": "./dist/index.js"
   },
   "main": "./dist/index.js",
   "type": "module",
@@ -25,7 +25,7 @@
     "extension",
     "chrome",
     "browser",
-    "extension-forge",
+    "mv3-forge",
     "manifest-v3",
     "typescript"
   ],
