@@ -1,5 +1,5 @@
 {
-  "name": "extension-forge",
+  "name": "@extension-forge/cli",
   "version": "0.1.0",
   "description": "A CLI tool for creating browser extensions",
   "bin": {
