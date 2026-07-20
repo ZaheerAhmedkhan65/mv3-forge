@@ -120,7 +120,7 @@ class TemplateManager {
 const program = new Command();
 
 program
-  .name('extension-forge')
+  .name('mv3-forge')
   .description('A CLI tool for creating browser extensions')
   .version('0.1.0')
   .argument('[project-name]', 'Name of the extension project')
@@ -130,7 +130,7 @@ program
   });
 
 async function createProject(projectName: string | undefined, templateName: string | undefined): Promise<void> {
-  console.log(picocolors.inverse(picocolors.bold(' extension-forge ')));
+  console.log(picocolors.inverse(picocolors.bold(' mv3-forge ')));
   console.log();
 
   let name: string;
@@ -180,7 +180,7 @@ async function createProject(projectName: string | undefined, templateName: stri
   const targetDir = name;
   const context: TemplateContext = {
     projectName: name,
-    projectDescription: 'A browser extension built with extension-forge',
+    projectDescription: 'A browser extension built with mv3-forge',
     templateName: template,
   };
 

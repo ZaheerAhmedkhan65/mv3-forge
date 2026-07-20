@@ -1,4 +1,4 @@
-import { Logger, exists, isEmptyDirectory, ensureDir } from '@extension-forge/shared';
+import { Logger, exists, isEmptyDirectory, ensureDir } from '@mv3-forge/shared';
 import { TemplateManager } from './template-manager.js';
 import { ManifestGenerator } from './manifest-generator.js';
 import { PackageJsonGenerator } from './package-json-generator.js';
@@ -21,7 +21,7 @@ export class ProjectCreator {
     const targetDir = options.targetDir || options.name;
     const context: TemplateContext = {
       projectName: options.name,
-      projectDescription: options.description || 'A browser extension built with extension-forge',
+      projectDescription: options.description || 'A browser extension built with mv3-forge',
       templateName: options.template,
     };
 
