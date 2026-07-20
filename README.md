@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="banner.png" alt="mv3-forge banner" width="800">
+</p>
+
 # mv3-forge
 
 [![npm version](https://badge.npmjs.org/axios.svg?style=flat-square)](https://www.npmjs.com/package/mv3-forge)

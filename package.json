@@ -1,6 +1,6 @@
 {
   "name": "mv3-forge",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A CLI tool for creating browser extensions",
   "bin": {
     "mv3-forge": "./packages/cli/dist/index.mjs",
