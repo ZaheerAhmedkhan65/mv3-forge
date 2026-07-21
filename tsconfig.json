@@ -1,0 +1,15 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "types": ["node"]
+  },
+  "include": [
+    "packages/shared/src/**/*",
+    "packages/core/src/**/*",
+    "packages/cli/src/**/*",
+    "packages/vite-plugin/src/**/*",
+    "packages/testing/src/**/*"
+  ],
+  "exclude": ["node_modules", "dist"]
+}
