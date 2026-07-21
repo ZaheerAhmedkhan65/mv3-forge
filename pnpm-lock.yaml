@@ -11,6 +11,9 @@ importers:
       '@eslint/js':
         specifier: ^8.0.0
         version: 8.57.1
+      '@types/node':
+        specifier: ^20.0.0
+        version: 20.19.43
       eslint:
         specifier: ^8.0.0
         version: 8.57.1
