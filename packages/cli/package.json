@@ -13,6 +13,7 @@
   ],
   "scripts": {
     "build": "tsup",
+    "prepare": "node copy-templates.js",
     "dev": "tsup --watch",
     "lint": "eslint src --fix"
   },
@@ -45,5 +46,8 @@
   "homepage": "https://github.com/ZaheerAhmedkhan65/mv3-forge#readme",
   "engines": {
     "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
