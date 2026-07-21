@@ -1,6 +1,7 @@
 {
   "name": "mv3-forge",
   "version": "0.1.2",
+  "private": true,
   "type": "module",
   "description": "A CLI tool for creating browser extensions",
   "bin": {
