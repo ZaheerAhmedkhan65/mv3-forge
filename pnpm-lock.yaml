@@ -7,6 +7,16 @@ settings:
 importers:
 
   .:
+    dependencies:
+      '@clack/prompts':
+        specifier: ^0.7.0
+        version: 0.7.0
+      commander:
+        specifier: ^11.0.0
+        version: 11.1.0
+      picocolors:
+        specifier: ^1.0.0
+        version: 1.1.1
     devDependencies:
       '@eslint/js':
         specifier: ^8.0.0
@@ -32,28 +42,12 @@ importers:
       '@clack/prompts':
         specifier: ^0.7.0
         version: 0.7.0
-      '@mv3-forge/core':
-        specifier: workspace:*
-        version: link:../core
-      '@mv3-forge/shared':
-        specifier: workspace:*
-        version: link:../shared
       commander:
         specifier: ^11.0.0
         version: 11.1.0
       picocolors:
         specifier: ^1.0.0
         version: 1.1.1
-    devDependencies:
-      '@types/node':
-        specifier: ^20.0.0
-        version: 20.19.43
-      tsup:
-        specifier: ^8.0.0
-        version: 8.5.1(postcss@8.5.20)(typescript@5.9.3)
-      typescript:
-        specifier: ^5.0.0
-        version: 5.9.3
 
   packages/core:
     dependencies:

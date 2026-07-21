@@ -4,7 +4,7 @@
 
 # mv3-forge
 
-[![npm version](https://img.shields.io/badge/npm-v0.1.1-red.svg)](https://www.npmjs.com/)
+[![npm version](https://img.shields.io/badge/npm-v0.1.2-red.svg)](https://www.npmjs.com/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Node.js >= 18](https://img.shields.io/badge/node-%3E%3D18-brightgreen.svg)](https://nodejs.org)
 [![pnpm >= 8](https://img.shields.io/badge/pnpm-%3E%3D8-brightgreen.svg)](https://pnpm.io)
@@ -22,38 +22,45 @@ A modern CLI tool for scaffolding cross-browser extensions with Manifest V3 supp
 
 ## Installation
 
-### Using pnpm (recommended)
+### Using npx (recommended)
 
 ```bash
-pnpm create mv3-forge my-extension
+npx mv3-forge new my-extension
 ```
 
-### Using npx
+### Using pnpm
 
 ```bash
-npx mv3-forge create my-extension
+pnpm dlx mv3-forge new my-extension
 ```
 
 ### Using npm
 
 ```bash
-npm create mv3-forge@latest my-extension
+npm exec mv3-forge new my-extension
 ```
 
 ### Using yarn
 
 ```bash
-yarn create mv3-forge my-extension
+yarn dlx mv3-forge new my-extension
+```
+
+### Using npm (install first)
+
+```bash
+npm i mv3-forge
+mv3-forge new my-extension
 ```
 
 ## Quick Start
 
 ```bash
 # Create a new extension project
-pnpm create mv3-forge my-extension
+npx mv3-forge new my-extension
 
-# Or with npx
-npx mv3-forge create my-extension
+# Or with pnpm
+pnpm dlx mv3-forge new my-extension
 
 # Navigate to your project
 cd my-extension
@@ -77,15 +84,15 @@ Then load the extension in your browser:
 Run the CLI without arguments for an interactive prompt:
 
 ```bash
-pnpm create mv3-forge
+mv3-forge new
 # or
-npx mv3-forge
+npx mv3-forge new
 ```
 
 ### CLI Options
 
 ```bash
-mv3-forge [project-name] [options]
+mv3-forge new [project-name] [options]
 
 Options:
   -t, --template <template>  Template to use (vanilla, react, vue, solid, svelte)
@@ -97,13 +104,13 @@ Options:
 
 ```bash
 # Create with vanilla template
-pnpm create mv3-forge my-extension --template vanilla
+npx mv3-forge new my-extension --template vanilla
 
 # Create with React template
-pnpm create mv3-forge my-extension --template react
+npx mv3-forge new my-extension --template react
 
 # Create with Vue template
-pnpm create mv3-forge my-extension --template vue
+npx mv3-forge new my-extension --template vue
 ```
 
 ## Available Templates

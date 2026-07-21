@@ -1,6 +1,6 @@
 import { Command } from 'commander';
 import picocolors from 'picocolors';
-import { intro, outro, select, text, isCancel, cancel } from '@clack/prompts';
+import { outro, select, text, isCancel, cancel } from '@clack/prompts';
 import { promises as fs } from 'fs';
 import { join, dirname } from 'path';
 
@@ -11,12 +11,6 @@ interface TemplateContext {
   projectName: string;
   projectDescription: string;
   templateName: Template;
-}
-
-interface ProjectOptions {
-  name: string;
-  template: Template;
-  description?: string;
 }
 
 const PACKAGE_NAME_REGEX = /^(@[a-z0-9~][a-z0-9._~/-]*\/)?[a-z0-9~][a-z0-9._~/-]*$/;
@@ -122,11 +116,23 @@ const program = new Command();
 program
   .name('mv3-forge')
   .description('A CLI tool for creating browser extensions')
-  .version('0.1.0')
-  .argument('[project-name]', 'Name of the extension project')
+  .version('0.1.2');
+
+program
+  .command('new <project-name>')
+  .description('Create a new browser extension project')
   .option('-t, --template <template>', 'Template to use (vanilla, react, vue, solid, svelte)')
-  .action(async (projectName: string | undefined, options: { template?: string }) => {
+  .action(async (projectName: string, options: { template?: string }) => {
     await createProject(projectName, options.template);
+  });
+
+program
+  .command('new')
+  .description('Create a new browser extension project (interactive mode)')
+  .option('-t, --template <template>', 'Template to use (vanilla, react, vue, solid, svelte)')
+  .allowExcessArguments(true)
+  .action(async (options: { template?: string }) => {
+    await createProject(undefined, options.template);
   });
 
 async function createProject(projectName: string | undefined, templateName: string | undefined): Promise<void> {
@@ -153,7 +159,7 @@ async function createProject(projectName: string | undefined, templateName: stri
     name = result as string;
   }
 
-  let template: Template;
+  let template: Template | undefined;
   if (templateName) {
     if (TEMPLATES.includes(templateName as Template)) {
       template = templateName as Template;
@@ -177,11 +183,16 @@ async function createProject(projectName: string | undefined, templateName: stri
     template = result as Template;
   }
 
+  if (!template) {
+    console.error(picocolors.red('✗'), 'Template selection is required');
+    process.exit(1);
+  }
+
   const targetDir = name;
   const context: TemplateContext = {
     projectName: name,
     projectDescription: 'A browser extension built with mv3-forge',
-    templateName: template,
+    templateName: template!,
   };
 
   // Check if target directory exists and is not empty
@@ -196,7 +207,7 @@ async function createProject(projectName: string | undefined, templateName: stri
 
   // Copy and process template
   const templateManager = new TemplateManager();
-  await templateManager.copyTemplate(template, targetDir, context);
+  await templateManager.copyTemplate(template!, targetDir, context);
   console.log(picocolors.green('✔'), `Copied template: ${template}`);
 
   await templateManager.processTemplateFiles(targetDir, context);
