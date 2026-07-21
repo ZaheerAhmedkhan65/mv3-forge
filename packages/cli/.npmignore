@@ -1,0 +1,32 @@
+# Source files
+src/
+
+# Tests
+tests/
+test/
+
+# Development configs
+eslint.config.js
+.prettierrc
+
+# Build caches
+.turbo/
+
+# Git
+.git/
+
+# Editor configs
+.vscode/
+.idea/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Local configs
+.env*
+
+# Temporary files
+*.tgz
+*.tsb
+*.tsbuildinfo

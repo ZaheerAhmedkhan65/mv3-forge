@@ -19,14 +19,20 @@ function isValidProjectName(name: string): boolean {
   return PACKAGE_NAME_REGEX.test(name);
 }
 
+// Get the templates directory relative to this compiled JS file
+// When bundled: dist/index.js -> templates (1 level up)
+// During development: src/index.ts works via monorepo path
 function getTemplatesDir(): string {
-  const currentFilePath = new URL(import.meta.url).pathname;
-  let templatesDir = currentFilePath;
-  templatesDir = dirname(templatesDir);
-  templatesDir = dirname(templatesDir);
-  templatesDir = dirname(templatesDir);
-  templatesDir = dirname(templatesDir);
-  return join(templatesDir, 'templates');
+  try {
+    // In production, this file is at packages/cli/dist/index.js
+    // Templates are at packages/cli/templates
+    const currentFilePath = new URL(import.meta.url).pathname;
+    const cliDir = dirname(currentFilePath);
+    return join(cliDir, '..', 'templates');
+  } catch {
+    // Fallback to current working directory (for development)
+    return join(process.cwd(), 'templates');
+  }
 }
 
 async function exists(path: string): Promise<boolean> {
@@ -93,6 +99,13 @@ class TemplateManager {
   }
 
   async processTemplateFiles(targetDir: string, context: TemplateContext): Promise<void> {
+    // First, rename gitignore.template to .gitignore if it exists
+    const gitignoreTemplatePath = join(targetDir, 'gitignore.template');
+    const gitignorePath = join(targetDir, '.gitignore');
+    if (await exists(gitignoreTemplatePath)) {
+      await fs.rename(gitignoreTemplatePath, gitignorePath);
+    }
+
     const files = await readdirRecursive(targetDir);
     for (const file of files) {
       if (!file.endsWith('.json') && !file.endsWith('.ts') && !file.endsWith('.js') && !file.endsWith('.html') && !file.endsWith('.css')) {

@@ -8,6 +8,7 @@
     "build": "turbo run build",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
+    "typecheck": "tsc --noEmit",
     "test": "turbo run test",
     "format": "prettier --write \"**/*.{ts,js,json,md}\"",
     "prepare": "husky"
@@ -18,7 +19,8 @@
     "eslint": "^8.0.0",
     "@eslint/js": "^8.0.0",
     "typescript-eslint": "^7.0.0",
-    "prettier": "^3.0.0"
+    "prettier": "^3.0.0",
+    "typescript": "^5.0.0"
   },
   "keywords": [
     "extension",
