@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.3] - 2026-22-07
+
 ### Added
 
 - ROADMAP.md for project planning and milestones
@@ -23,7 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Removed deprecated `ignoreDeprecations` option from tsconfig.base.json
 - Updated project dependencies
 
-## [0.1.2] - 2025-01-XX
+## [0.1.2] - 2026-22-07
 
 ### Added
 
@@ -46,7 +48,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Manifest V3 support out of the box
 - Cross-browser compatibility (Chrome, Firefox, Chromium-based browsers)
 
-## [0.1.1] - 2025-01-XX
+## [0.1.1] - 2026-21-07
 
 ### Added
 
