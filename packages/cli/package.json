@@ -1,10 +1,9 @@
 {
   "name": "mv3-forge",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A CLI tool for creating Manifest V3 browser extensions",
   "bin": {
-    "mv3-forge": "./dist/index.js",
-    "create-mv3-forge": "./dist/index.js"
+    "mv3-forge": "./dist/index.js"
   },
   "main": "./dist/index.js",
   "type": "module",
@@ -14,7 +13,13 @@
   ],
   "scripts": {
     "build": "tsup",
-    "dev": "tsup --watch"
+    "dev": "tsup --watch",
+    "lint": "eslint src --fix"
+  },
+  "devDependencies": {
+    "tsup": "^8.0.0",
+    "typescript": "^5.0.0",
+    "@types/node": "^20.0.0"
   },
   "dependencies": {
     "commander": "^11.0.0",

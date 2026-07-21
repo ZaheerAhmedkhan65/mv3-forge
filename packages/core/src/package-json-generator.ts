@@ -11,7 +11,7 @@ export class PackageJsonGenerator {
         // Base package.json common to all templates
         const packageJson = {
             name: options.name,
-            version: '0.1.0',
+            version: '0.1.2',
             description: options.description || 'A browser extension built with mv3-forge',
             type: 'module',
             scripts: this.getTemplateScripts(options.template),
