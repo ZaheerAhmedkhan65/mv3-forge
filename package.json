@@ -1,18 +1,9 @@
 {
-  "name": "mv3-forge",
+  "name": "@mv3-forge/monorepo",
   "version": "0.1.2",
   "private": true,
   "type": "module",
-  "description": "A CLI tool for creating browser extensions",
-  "bin": {
-    "mv3-forge": "./packages/cli/dist/index.js"
-  },
-  "files": [
-    "packages/cli/dist",
-    "packages/core/dist",
-    "packages/shared/dist",
-    "templates"
-  ],
+  "description": "A monorepo for mv3-forge browser extension tooling",
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
@@ -28,11 +19,6 @@
     "@eslint/js": "^8.0.0",
     "typescript-eslint": "^7.0.0",
     "prettier": "^3.0.0"
-  },
-  "dependencies": {
-    "commander": "^11.0.0",
-    "@clack/prompts": "^0.7.0",
-    "picocolors": "^1.0.0"
   },
   "keywords": [
     "extension",
