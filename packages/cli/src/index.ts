@@ -145,7 +145,7 @@ const program = new Command();
 program
   .name('mv3-forge')
   .description('A CLI tool for creating browser extensions')
-  .version('0.1.2');
+  .version('0.1.3');
 
 program
   .command('new <project-name>')
