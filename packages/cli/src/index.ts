@@ -35,6 +35,22 @@ function getTemplatesDir(): string {
   }
 }
 
+async function getAvailableTemplates(dir: string): Promise<Template[]> {
+  const templates: Template[] = [];
+  try {
+    const entries = await fs.readdir(dir);
+    for (const entry of entries) {
+      const stat = await fs.stat(join(dir, entry));
+      if (stat.isDirectory()) {
+        templates.push(entry as Template);
+      }
+    }
+  } catch {
+    // Templates directory doesn't exist
+  }
+  return templates;
+}
+
 async function exists(path: string): Promise<boolean> {
   try {
     await fs.access(path);
@@ -172,21 +188,31 @@ async function createProject(projectName: string | undefined, templateName: stri
     name = result as string;
   }
 
+  // Get available templates from disk
+  const templatesDir = getTemplatesDir();
+  const availableTemplates = await getAvailableTemplates(templatesDir);
+
   let template: Template | undefined;
   if (templateName) {
-    if (TEMPLATES.includes(templateName as Template)) {
+    if (availableTemplates.includes(templateName as Template)) {
       template = templateName as Template;
+    } else if (TEMPLATES.includes(templateName as Template)) {
+      console.error(picocolors.red('✗'), `Template '${templateName}' is not available yet. Coming soon!`);
+      process.exit(1);
     } else {
       console.error(picocolors.red('✗'), `Invalid template: ${templateName}`);
       process.exit(1);
     }
   } else {
+    // Filter templates to only show available ones
+    const availableOptions = TEMPLATES.filter(t => availableTemplates.includes(t)).map((t) => ({
+      value: t,
+      label: t.charAt(0).toUpperCase() + t.slice(1),
+    }));
+
     const result = await select({
       message: 'Pick a template',
-      options: TEMPLATES.map((t) => ({
-        value: t,
-        label: t.charAt(0).toUpperCase() + t.slice(1),
-      })),
+      options: availableOptions,
     });
 
     if (isCancel(result)) {
