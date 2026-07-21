@@ -81,7 +81,7 @@
 ## Folder Structure
 
 ```
-extension-forge/
+mv3-forge/
 ├── apps/
 ├── demo-extension/
 ├── packages/
