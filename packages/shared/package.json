@@ -1,6 +1,6 @@
 {
   "name": "@mv3-forge/shared",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Shared utilities for mv3-forge",
   "main": "./dist/index.mjs",
   "module": "./dist/index.mjs",

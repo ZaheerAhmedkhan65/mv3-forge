@@ -4,7 +4,7 @@
 
 # mv3-forge
 
-[![npm version](https://img.shields.io/badge/npm-v0.1.4-red.svg)](https://www.npmjs.com/)
+[![npm version](https://img.shields.io/badge/npm-v0.1.5-red.svg)](https://www.npmjs.com/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Node.js >= 18](https://img.shields.io/badge/node-%3E%3D18-brightgreen.svg)](https://nodejs.org)
 [![pnpm >= 8](https://img.shields.io/badge/pnpm-%3E%3D8-brightgreen.svg)](https://pnpm.io)
@@ -127,6 +127,7 @@ npx mv3-forge new my-extension --template vue
 
 ```
 my-extension/
+├── icons/               # Icon assets
 ├── src/
 │   ├── background.ts    # Background service worker
 │   ├── content.ts       # Content script
@@ -134,6 +135,8 @@ my-extension/
 │   ├── popup.html       # Popup UI
 │   ├── index.html       # Options page
 │   └── styles.css       # Styles
+├── dist/                # Build output
+├── .gitignore           # Gitignore
 ├── manifest.json        # Extension manifest
 ├── package.json
 ├── tsconfig.json

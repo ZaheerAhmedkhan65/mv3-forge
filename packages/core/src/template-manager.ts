@@ -43,7 +43,7 @@ export class TemplateManager {
     const files = await readdirRecursive(targetDir);
 
     for (const file of files) {
-      if (!file.endsWith('.json') && !file.endsWith('.ts') && !file.endsWith('.js') && !file.endsWith('.html') && !file.endsWith('.css')) {
+      if (!file.endsWith('.json') && !file.endsWith('.ts') && !file.endsWith('.tsx') && !file.endsWith('.js') && !file.endsWith('.html') && !file.endsWith('.css')) {
         continue;
       }
       const filePath = join(targetDir, file);
