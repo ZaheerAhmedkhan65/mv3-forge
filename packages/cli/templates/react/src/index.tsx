@@ -23,7 +23,7 @@ function Options() {
   return (
     <div className="container">
       <h1>Extension Options</h1>
-      <p>Configure your {{projectName}} extension settings.</p>
+      <p>Configure your __PROJECT_NAME__ extension settings.</p>
       <div className="setting">
         <label htmlFor="theme">Theme:</label>
         <select id="theme" value={theme} onChange={(e) => setTheme(e.target.value)}>

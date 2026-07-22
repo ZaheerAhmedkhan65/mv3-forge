@@ -7,7 +7,7 @@ function Popup() {
 
   return (
     <div className="container">
-      <h1>Hello from {{projectName}}!</h1>
+      <h1>Hello from __PROJECT_NAME__!</h1>
       <p>Counter: <span id="counter">{counter}</span></p>
       <button onClick={() => setCounter(counter + 1)}>+1</button>
     </div>
