@@ -1,5 +1,5 @@
 export const EXTENSION_FORGE_NAME = 'mv3-forge';
-export const EXTENSION_FORGE_VERSION = '0.1.5';
+export const EXTENSION_FORGE_VERSION = '0.1.6';
 
 export const TEMPLATES = ['vanilla', 'react', 'vue', 'solid', 'svelte'] as const;
 export type Template = (typeof TEMPLATES)[number];
