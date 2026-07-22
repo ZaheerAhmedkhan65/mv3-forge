@@ -1,6 +1,6 @@
 {
     "name": "@mv3-forge/vite-plugin",
-    "version": "0.1.5",
+    "version": "0.1.6",
     "description": "Vite plugin for mv3-forge (reserved for future milestones)",
     "main": "./dist/index.js",
     "module": "./dist/index.js",
