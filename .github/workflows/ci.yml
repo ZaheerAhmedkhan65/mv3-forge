@@ -88,6 +88,11 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm build
 
+      # Clean old tarballs before packing
+      - name: Clean old tarballs
+        working-directory: packages/cli
+        run: rm -f *.tgz
+
       # Pack CLI package
       - name: Pack CLI package
         working-directory: packages/cli
@@ -99,7 +104,7 @@ jobs:
         run: |
           tar -tzf *.tgz | head -20
           echo "Checking for templates in tarball..."
-          tar -tzf *.tgz | grep -q "templates/vanilla" && echo "Templates found!" || exit 1
+          tar -tzf *.tgz | grep -q "package/templates/vanilla" && echo "Templates found!" || exit 1
 
   smoke-test:
     runs-on: ubuntu-latest

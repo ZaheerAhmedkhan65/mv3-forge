@@ -56,6 +56,11 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm build
 
+      # Clean old tarballs before packing
+      - name: Clean old tarballs
+        working-directory: packages/cli
+        run: rm -f *.tgz
+
       - name: Pack CLI package
         working-directory: packages/cli
         run: npm pack
