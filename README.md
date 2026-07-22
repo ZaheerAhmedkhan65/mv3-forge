@@ -118,7 +118,7 @@ npx mv3-forge new my-extension --template vue
 | Template | Description | Status |
 |----------|-------------|--------|
 | `vanilla` | Plain TypeScript with Vite | ✅ Available |
-| `react` | React + TypeScript + Vite | 🚧 Coming Soon |
+| `react` | React + TypeScript + Vite | ✅ Available |
 | `vue` | Vue + TypeScript + Vite | 🚧 Coming Soon |
 | `solid` | Solid + TypeScript + Vite | 🚧 Coming Soon |
 | `svelte` | Svelte + TypeScript + Vite | 🚧 Coming Soon |
