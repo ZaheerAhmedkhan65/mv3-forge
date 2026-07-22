@@ -4,7 +4,7 @@
 
 # mv3-forge
 
-[![npm version](https://img.shields.io/badge/npm-v0.1.3-red.svg)](https://www.npmjs.com/)
+[![npm version](https://img.shields.io/badge/npm-v0.1.4-red.svg)](https://www.npmjs.com/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Node.js >= 18](https://img.shields.io/badge/node-%3E%3D18-brightgreen.svg)](https://nodejs.org)
 [![pnpm >= 8](https://img.shields.io/badge/pnpm-%3E%3D8-brightgreen.svg)](https://pnpm.io)
