@@ -62,6 +62,7 @@ export class TemplateManager {
 
   private renderTemplate(content: string, context: TemplateContext): string {
     return content
+      .replace(/__PROJECT_NAME__/g, context.projectName)
       .replace(/\{\{projectName\}\}/g, context.projectName)
       .replace(/\{\{projectDescription\}\}/g, context.projectDescription || '')
       .replace(/\{\{templateName\}\}/g, context.templateName);
