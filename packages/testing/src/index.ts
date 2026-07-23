@@ -1,4 +1,7 @@
-// Reserved for future milestones
-// Will include Vitest helpers, Playwright helpers, Chrome mocking, Extension test utilities
+export * from './mock-chrome.js';
 
-export const placeholder = 'testing package - coming soon';
+// Testing utilities will be added for Vitest and Playwright integration
+export const placeholders = {
+  vitestSetup: 'Vitest configuration - coming soon',
+  playwrightSetup: 'Playwright configuration - coming soon',
+};

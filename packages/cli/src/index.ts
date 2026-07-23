@@ -263,4 +263,84 @@ Next steps:
   );
 }
 
+// dev command
+program
+  .command('dev')
+  .description('Start development server with hot reload')
+  .option('-p, --port <port>', 'Port to use for dev server')
+  .action(async (_options: { port?: string }) => {
+    console.log(picocolors.cyan('→ Starting development server...'));
+    // Would integrate with vite dev server and HMR
+  });
+
+// build command
+program
+  .command('build')
+  .description('Build extension for production')
+  .option('--mode <mode>', 'Build mode (development, staging, production)', 'production')
+  .action(async (_options: { mode?: string }) => {
+    console.log(picocolors.cyan('→ Building extension...'));
+    // Would orchestrate manifest generation, vite build, and plugins
+  });
+
+// zip command
+program
+  .command('zip')
+  .description('Package extension into ZIP file')
+  .option('-o, --output <output>', 'Output path for ZIP file')
+  .action(async (_options: { output?: string }) => {
+    console.log(picocolors.cyan('→ Creating ZIP package...'));
+    // Would invoke zip plugin
+  });
+
+// release command
+program
+  .command('release')
+  .description('Create a new release with version bump and changelog')
+  .option('--pre-release <type>', 'Create pre-release (alpha, beta, rc)')
+  .action(async (_options: { preRelease?: string }) => {
+    console.log(picocolors.cyan('→ Creating release...'));
+    // Would orchestrate version bump, changelog, zip, and git tagging
+  });
+
+// publish command
+program
+  .command('publish')
+  .description('Publish extension to stores')
+  .option('--chrome', 'Publish to Chrome Web Store')
+  .option('--addons', 'Publish to Firefox Addons')
+  .action(async (_options: { chrome?: boolean; addons?: boolean }) => {
+    console.log(picocolors.cyan('→ Publishing extension...'));
+    // Would orchestrate release and store publishing
+  });
+
+// doctor command
+program
+  .command('doctor')
+  .description('Run diagnostics on the project')
+  .action(async () => {
+    console.log(picocolors.cyan('→ Running diagnostics...'));
+    // Would check Node.js version, npm, browser compatibility, etc.
+  });
+
+// lint command
+program
+  .command('lint')
+  .description('Run ESLint and TypeScript checking')
+  .option('--fix', 'Auto-fix issues')
+  .action(async (_options: { fix?: boolean }) => {
+    console.log(picocolors.cyan('→ Running linter...'));
+  });
+
+// test command
+program
+  .command('test')
+  .description('Run tests')
+  .option('--watch', 'Watch mode')
+  .option('--e2e', 'Run end-to-end tests')
+  .action(async (_options: { watch?: boolean; e2e?: boolean }) => {
+    console.log(picocolors.cyan('→ Running tests...'));
+    // Would orchestrate Vitest and Playwright
+  });
+
 program.parse();
