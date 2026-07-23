@@ -1,4 +1,6 @@
-// Reserved for future milestones
-// Will include Manifest generation, HMR, Background worker reload, Content script injection, Asset handling
+export * from './entry-discovery.js';
+export * from './hmr-plugin.js';
 
-export const placeholder = 'vite-plugin package - coming soon';
+// Re-export commonly used utilities
+export { discoverEntries, type EntryPoint, type DiscoveredEntry } from './entry-discovery.js';
+export { createHMRPlugin, type HMRPluginOptions } from './hmr-plugin.js';
