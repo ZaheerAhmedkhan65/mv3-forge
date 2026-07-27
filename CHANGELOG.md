@@ -9,6 +9,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.1.8] - 2026-27-07
 
+### Added
+
+- Template registry in `@mv3-forge/shared` for single source of truth
+- Unified extension Vite plugin in `@mv3-forge/vite-plugin`
+- Standardized template structure for both Vanilla and React templates
+- `src/manifest.ts` using `defineManifest()` DSL (replaces `manifest.json`)
+- `src/icons/` directory (moved from root `/icons/`)
+- `src/background/index.ts`, `src/content/index.ts`, `src/popup/`, `src/options/`, `src/env.d.ts`
+- `README.md` for each template
+- `types: ["node"]` in tsconfig.base.json for proper Node.js type resolution
+
+### Changed
+
+- Removed duplicated `/packages/cli/templates/` directory (single source: `/templates/`)
+- CLI build script now copies templates before building (`node copy-templates.js && tsup`)
+- CLI uses shared utilities from `@mv3-forge/shared` instead of local duplicates
+- Core `TemplateManager` uses shared template registry
+- Both Vanilla and React templates follow identical directory structure
+
+### Fixed
+
+- Typecheck error: use `TemplateType` from shared package instead of `keyof typeof TEMPLATE_REGISTRY`
+- Lint errors: unused imports and prototype method access
+- Templates now properly bundled into npm package during build
+
 ## [0.1.7] - 2026-27-07
 
 ## [0.1.6] - 2026-23-07
