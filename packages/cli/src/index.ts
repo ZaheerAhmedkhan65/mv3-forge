@@ -76,7 +76,7 @@ const program = new Command();
 program
   .name('mv3-forge')
   .description('A CLI tool for creating browser extensions')
-  .version('0.1.8');
+  .version('0.1.9');
 
 program
   .command('new <project-name>')
