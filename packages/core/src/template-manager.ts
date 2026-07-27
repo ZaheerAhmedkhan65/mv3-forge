@@ -1,36 +1,29 @@
-import { copyDirRecursive, exists, readdirRecursive } from '@mv3-forge/shared';
-import { TemplateContext } from './types.js';
-import { Template } from '@mv3-forge/shared';
+import type { TemplateContext } from './types.js';
+import { join } from 'path';
 import { promises as fs } from 'fs';
-import { join, dirname } from 'path';
+import {
+  TemplateType,
+  copyDirRecursive,
+  readdirRecursive,
+  exists,
+  resolveTemplatePath,
+  getTemplatesDir,
+} from '@mv3-forge/shared';
+
+export { TemplateType };
+export type { TemplateContext };
 
 export class TemplateManager {
-  private templatesDir: string;
+  private templatesDir: string | undefined;
 
   constructor(templatesDir?: string) {
-    this.templatesDir = templatesDir || this.getDefaultTemplatesDir();
+    this.templatesDir = templatesDir;
   }
 
-  private getDefaultTemplatesDir(): string {
-    // Navigate up from /packages/core/dist to /templates
-    // import.meta.url is: file:///path/to/packages/core/dist/index.mjs
-    const currentFilePath = new URL(import.meta.url).pathname;
-    // Go up 3 levels: /packages/core/dist/index.mjs -> /packages/core -> packages -> monorepo root -> templates
-    let templatesDir = currentFilePath;
-    // Remove the filename (index.mjs)
-    templatesDir = dirname(templatesDir);
-    // Remove /dist
-    templatesDir = dirname(templatesDir);
-    // Remove /core (packages/core)
-    templatesDir = dirname(templatesDir);
-    // Remove /packages
-    templatesDir = dirname(templatesDir);
-    // Now we're at the monorepo root, add templates
-    return join(templatesDir, 'templates');
-  }
-
-  async copyTemplate(templateName: Template, targetDir: string, _context: TemplateContext): Promise<void> {
-    const templatePath = join(this.templatesDir, templateName);
+  async copyTemplate(templateName: TemplateType, targetDir: string, _context: TemplateContext): Promise<void> {
+    const templatePath = this.templatesDir 
+      ? join(this.templatesDir, templateName)
+      : resolveTemplatePath(templateName);
 
     if (!(await exists(templatePath))) {
       throw new Error(`Template '${templateName}' not found at ${templatePath}`);
@@ -40,6 +33,13 @@ export class TemplateManager {
   }
 
   async processTemplateFiles(targetDir: string, context: TemplateContext): Promise<void> {
+    // First, rename gitignore.template to .gitignore if it exists
+    const gitignoreTemplatePath = join(targetDir, 'gitignore.template');
+    const gitignorePath = join(targetDir, '.gitignore');
+    if (await exists(gitignoreTemplatePath)) {
+      await fs.rename(gitignoreTemplatePath, gitignorePath);
+    }
+
     const files = await readdirRecursive(targetDir);
 
     for (const file of files) {
@@ -68,20 +68,21 @@ export class TemplateManager {
       .replace(/\{\{templateName\}\}/g, context.templateName);
   }
 
-  async getAvailableTemplates(): Promise<Template[]> {
-    const templates: Template[] = [];
-
-    if (!(await exists(this.templatesDir))) {
-      return templates;
+  async getAvailableTemplates(): Promise<TemplateType[]> {
+    const templatesDir = this.templatesDir || getTemplatesDir();
+    
+    if (!(await exists(templatesDir))) {
+      return [];
     }
 
-    const dirs = await fs.readdir(this.templatesDir);
+    const dirs = await fs.readdir(templatesDir);
+    const templates: TemplateType[] = [];
 
     for (const dir of dirs) {
-      const dirPath = join(this.templatesDir, dir);
+      const dirPath = join(templatesDir, dir);
       const stat = await fs.stat(dirPath);
       if (stat.isDirectory()) {
-        templates.push(dir as Template);
+        templates.push(dir as TemplateType);
       }
     }
 

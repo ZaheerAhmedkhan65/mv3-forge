@@ -9,6 +9,7 @@
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "baseUrl": ".",
+    "types": ["node"],
     "paths": {
       "@mv3-forge/shared": [
         "packages/shared/src/index.ts"

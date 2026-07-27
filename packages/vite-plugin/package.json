@@ -1,7 +1,7 @@
 {
     "name": "@mv3-forge/vite-plugin",
     "version": "0.1.7",
-    "description": "Vite plugin for mv3-forge (reserved for future milestones)",
+    "description": "Vite plugin for mv3-forge browser extension development",
     "main": "./dist/index.js",
     "module": "./dist/index.js",
     "types": "./dist/index.d.ts",
@@ -25,5 +25,7 @@
         "@types/node": "^20.0.0",
         "vite": "^5.0.0"
     },
-    "dependencies": {}
+    "dependencies": {
+        "vite": "^5.0.0"
+    }
 }

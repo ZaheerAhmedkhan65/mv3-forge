@@ -2,10 +2,19 @@ import { Command } from 'commander';
 import picocolors from 'picocolors';
 import { outro, select, text, isCancel, cancel } from '@clack/prompts';
 import { promises as fs } from 'fs';
-import { join, dirname } from 'path';
+import { join } from 'path';
+import {
+  TEMPLATE_REGISTRY,
+  getAvailableTemplates,
+  resolveTemplatePath,
+  copyDirRecursive,
+  readdirRecursive,
+  exists,
+  isEmptyDirectory,
+  ensureDir,
+} from '@mv3-forge/shared';
 
-const TEMPLATES = ['vanilla', 'react', 'vue', 'solid', 'svelte'] as const;
-type Template = (typeof TEMPLATES)[number];
+type Template = keyof typeof TEMPLATE_REGISTRY;
 
 interface TemplateContext {
   projectName: string;
@@ -19,95 +28,18 @@ function isValidProjectName(name: string): boolean {
   return PACKAGE_NAME_REGEX.test(name);
 }
 
-// Get the templates directory relative to this compiled JS file
-// When bundled: dist/index.js -> templates (1 level up)
-// During development: src/index.ts works via monorepo path
-function getTemplatesDir(): string {
-  try {
-    // In production, this file is at packages/cli/dist/index.js
-    // Templates are at packages/cli/templates
-    const currentFilePath = new URL(import.meta.url).pathname;
-    const cliDir = dirname(currentFilePath);
-    return join(cliDir, '..', 'templates');
-  } catch {
-    // Fallback to current working directory (for development)
-    return join(process.cwd(), 'templates');
-  }
-}
-
-async function getAvailableTemplates(dir: string): Promise<Template[]> {
-  const templates: Template[] = [];
-  try {
-    const entries = await fs.readdir(dir);
-    for (const entry of entries) {
-      const stat = await fs.stat(join(dir, entry));
-      if (stat.isDirectory()) {
-        templates.push(entry as Template);
-      }
-    }
-  } catch {
-    // Templates directory doesn't exist
-  }
-  return templates;
-}
-
-async function exists(path: string): Promise<boolean> {
-  try {
-    await fs.access(path);
-    return true;
-  } catch {
-    return false;
-  }
-}
-
-async function isEmptyDirectory(path: string): Promise<boolean> {
-  if (!(await exists(path))) return false;
-  const stat = await fs.stat(path);
-  if (!stat.isDirectory()) return false;
-  const files = await fs.readdir(path);
-  return files.length === 0;
-}
-
-async function ensureDir(path: string): Promise<void> {
-  await fs.mkdir(path, { recursive: true });
-}
-
-async function copyDirRecursive(source: string, destination: string): Promise<void> {
-  await fs.cp(source, destination, { recursive: true });
-}
-
-async function readdirRecursive(dir: string): Promise<string[]> {
-  const files: string[] = [];
-  const items = await fs.readdir(dir);
-  for (const item of items) {
-    const fullPath = join(dir, item);
-    const stat = await fs.stat(fullPath);
-    if (stat.isDirectory()) {
-      const nestedFiles = await readdirRecursive(fullPath);
-      files.push(...nestedFiles.map((f) => join(item, f)));
-    } else {
-      files.push(item);
-    }
-  }
-  return files;
-}
-
 function renderTemplate(content: string, context: TemplateContext): string {
   return content
+    .replace(/__PROJECT_NAME__/g, context.projectName)
     .replace(/\{\{projectName\}\}/g, context.projectName)
     .replace(/\{\{projectDescription\}\}/g, context.projectDescription || '')
     .replace(/\{\{templateName\}\}/g, context.templateName);
 }
 
 class TemplateManager {
-  private templatesDir: string;
-
-  constructor(templatesDir?: string) {
-    this.templatesDir = templatesDir || getTemplatesDir();
-  }
-
   async copyTemplate(templateName: Template, targetDir: string, _context: TemplateContext): Promise<void> {
-    const templatePath = join(this.templatesDir, templateName);
+    const templatePath = resolveTemplatePath(templateName);
+
     if (!(await exists(templatePath))) {
       throw new Error(`Template '${templateName}' not found at ${templatePath}`);
     }
@@ -124,7 +56,7 @@ class TemplateManager {
 
     const files = await readdirRecursive(targetDir);
     for (const file of files) {
-      if (!file.endsWith('.json') && !file.endsWith('.ts') && !file.endsWith('.js') && !file.endsWith('.html') && !file.endsWith('.css')) {
+      if (!file.endsWith('.json') && !file.endsWith('.ts') && !file.endsWith('.tsx') && !file.endsWith('.js') && !file.endsWith('.html') && !file.endsWith('.css')) {
         continue;
       }
       const filePath = join(targetDir, file);
@@ -152,7 +84,9 @@ program
   .description('Create a new browser extension project')
   .option('-t, --template <template>', 'Template to use (vanilla, react, vue, solid, svelte)')
   .action(async (projectName: string, options: { template?: string }) => {
-    await createProject(projectName, options.template);
+    const template = options.template as Template | undefined;
+    const isValid = template && Object.keys(TEMPLATE_REGISTRY).includes(template);
+    await createProject(projectName, isValid ? template : undefined);
   });
 
 program
@@ -161,10 +95,12 @@ program
   .option('-t, --template <template>', 'Template to use (vanilla, react, vue, solid, svelte)')
   .allowExcessArguments(true)
   .action(async (options: { template?: string }) => {
-    await createProject(undefined, options.template);
+    const template = options.template as Template | undefined;
+    const isValid = template && Object.keys(TEMPLATE_REGISTRY).includes(template);
+    await createProject(undefined, isValid ? template : undefined);
   });
 
-async function createProject(projectName: string | undefined, templateName: string | undefined): Promise<void> {
+async function createProject(projectName: string | undefined, templateName: Template | undefined): Promise<void> {
   console.log(picocolors.inverse(picocolors.bold(' mv3-forge ')));
   console.log();
 
@@ -188,26 +124,24 @@ async function createProject(projectName: string | undefined, templateName: stri
     name = result as string;
   }
 
-  // Get available templates from disk
-  const templatesDir = getTemplatesDir();
-  const availableTemplates = await getAvailableTemplates(templatesDir);
+  // Get available templates from the registry
+  const availableTemplates = getAvailableTemplates();
 
   let template: Template | undefined;
   if (templateName) {
-    if (availableTemplates.includes(templateName as Template)) {
-      template = templateName as Template;
-    } else if (TEMPLATES.includes(templateName as Template)) {
-      console.error(picocolors.red('✗'), `Template '${templateName}' is not available yet. Coming soon!`);
-      process.exit(1);
+    if (availableTemplates.includes(templateName)) {
+      template = templateName;
     } else {
-      console.error(picocolors.red('✗'), `Invalid template: ${templateName}`);
+      // Template is registered but not available on disk
+      console.error(picocolors.red('✗'), `Template '${templateName}' is not available yet. Coming soon!`);
       process.exit(1);
     }
   } else {
     // Filter templates to only show available ones
-    const availableOptions = TEMPLATES.filter(t => availableTemplates.includes(t)).map((t) => ({
+    const availableOptions = availableTemplates.map((t) => ({
       value: t,
-      label: t.charAt(0).toUpperCase() + t.slice(1),
+      label: TEMPLATE_REGISTRY[t]?.label || t,
+      hint: TEMPLATE_REGISTRY[t]?.description || '',
     }));
 
     const result = await select({
@@ -231,7 +165,7 @@ async function createProject(projectName: string | undefined, templateName: stri
   const context: TemplateContext = {
     projectName: name,
     projectDescription: 'A browser extension built with mv3-forge',
-    templateName: template!,
+    templateName: template,
   };
 
   // Check if target directory exists and is not empty
@@ -246,7 +180,7 @@ async function createProject(projectName: string | undefined, templateName: stri
 
   // Copy and process template
   const templateManager = new TemplateManager();
-  await templateManager.copyTemplate(template!, targetDir, context);
+  await templateManager.copyTemplate(template, targetDir, context);
   console.log(picocolors.green('✔'), `Copied template: ${template}`);
 
   await templateManager.processTemplateFiles(targetDir, context);
