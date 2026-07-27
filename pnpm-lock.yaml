@@ -103,6 +103,10 @@ importers:
         version: 1.6.1(@types/node@20.19.43)
 
   packages/vite-plugin:
+    dependencies:
+      vite:
+        specifier: ^5.0.0
+        version: 5.4.21(@types/node@20.19.43)
     devDependencies:
       '@types/node':
         specifier: ^20.0.0
@@ -113,9 +117,6 @@ importers:
       typescript:
         specifier: ^5.0.0
         version: 5.9.3
-      vite:
-        specifier: ^5.0.0
-        version: 5.4.21(@types/node@20.19.43)
 
 packages:
 
