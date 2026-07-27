@@ -57,6 +57,12 @@ export interface SharedConfig {
   };
 }
 
+interface PackageJson {
+  name?: string;
+  description?: string;
+  version?: string;
+}
+
 export class ConfigLoader {
   private static instance: SharedConfig | null = null;
   private static projectRoot: string;
@@ -86,12 +92,17 @@ export class ConfigLoader {
 
     const envConfig = this.loadEnvironment();
 
+    // Use nullish coalescing to handle missing properties
+    const name = typeof packageJson.name === 'string' ? packageJson.name : 'mv3-extension';
+    const description = typeof packageJson.description === 'string' ? packageJson.description : '';
+    const version = typeof packageJson.version === 'string' ? packageJson.version : '1.0.0';
+
     return {
       projectRoot,
       projectMetadata: {
-        name: packageJson.name || 'mv3-extension',
-        description: packageJson.description || '',
-        version: packageJson.version || '1.0.0',
+        name,
+        description,
+        version,
       },
       extension: {
         manifestVersion: MANIFEST_VERSION,
@@ -122,12 +133,12 @@ export class ConfigLoader {
     };
   }
 
-  private static async loadPackageJson(path: string): Promise<Record<string, unknown>> {
+  private static async loadPackageJson(path: string): Promise<PackageJson> {
     try {
       return await readJson(path);
     } catch {
       logger.warn('package.json not found, using defaults');
-      return {};
+      return {} as PackageJson;
     }
   }
 

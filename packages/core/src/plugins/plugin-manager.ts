@@ -21,7 +21,7 @@ export class PluginManagerImpl {
     for (const plugin of this.plugins) {
       const hookFn = plugin.hooks[hook];
       if (hookFn) {
-        promises.push(Promise.resolve().then(() => hookFn(context)));
+        promises.push(Promise.resolve().then(() => hookFn(context as any)));
       }
     }
 
