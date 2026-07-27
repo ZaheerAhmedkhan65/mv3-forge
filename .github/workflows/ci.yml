@@ -123,6 +123,11 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm build
 
+      # Pack CLI package (smoke-test runs on separate runner from pack job)
+      - name: Pack CLI package
+        working-directory: packages/cli
+        run: npm pack
+
       # Install CLI globally from tarball
       - name: Install CLI from tarball
         working-directory: packages/cli
