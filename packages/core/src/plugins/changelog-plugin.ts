@@ -13,9 +13,8 @@ export const changelogPlugin = (): Plugin => ({
     },
     async afterBuild() {
       // Generate changelog from conventional commits
-      const changelog = await generateChangelog();
+      await generateChangelog();
       logger.success(`Changelog generated`);
-      return changelog;
     },
   },
 });
