@@ -5,6 +5,7 @@ import { promises as fs } from 'fs';
 import { join } from 'path';
 import {
   TEMPLATE_REGISTRY,
+  TemplateType,
   getAvailableTemplates,
   resolveTemplatePath,
   copyDirRecursive,
@@ -14,12 +15,10 @@ import {
   ensureDir,
 } from '@mv3-forge/shared';
 
-type Template = keyof typeof TEMPLATE_REGISTRY;
-
 interface TemplateContext {
   projectName: string;
   projectDescription: string;
-  templateName: Template;
+  templateName: TemplateType;
 }
 
 const PACKAGE_NAME_REGEX = /^(@[a-z0-9~][a-z0-9._~/-]*\/)?[a-z0-9~][a-z0-9._~/-]*$/;
@@ -37,7 +36,7 @@ function renderTemplate(content: string, context: TemplateContext): string {
 }
 
 class TemplateManager {
-  async copyTemplate(templateName: Template, targetDir: string, _context: TemplateContext): Promise<void> {
+  async copyTemplate(templateName: TemplateType, targetDir: string, _context: TemplateContext): Promise<void> {
     const templatePath = resolveTemplatePath(templateName);
 
     if (!(await exists(templatePath))) {
@@ -84,7 +83,7 @@ program
   .description('Create a new browser extension project')
   .option('-t, --template <template>', 'Template to use (vanilla, react, vue, solid, svelte)')
   .action(async (projectName: string, options: { template?: string }) => {
-    const template = options.template as Template | undefined;
+    const template = options.template as TemplateType | undefined;
     const isValid = template && Object.keys(TEMPLATE_REGISTRY).includes(template);
     await createProject(projectName, isValid ? template : undefined);
   });
@@ -95,12 +94,12 @@ program
   .option('-t, --template <template>', 'Template to use (vanilla, react, vue, solid, svelte)')
   .allowExcessArguments(true)
   .action(async (options: { template?: string }) => {
-    const template = options.template as Template | undefined;
+    const template = options.template as TemplateType | undefined;
     const isValid = template && Object.keys(TEMPLATE_REGISTRY).includes(template);
     await createProject(undefined, isValid ? template : undefined);
   });
 
-async function createProject(projectName: string | undefined, templateName: Template | undefined): Promise<void> {
+async function createProject(projectName: string | undefined, templateName: TemplateType | undefined): Promise<void> {
   console.log(picocolors.inverse(picocolors.bold(' mv3-forge ')));
   console.log();
 
@@ -127,7 +126,7 @@ async function createProject(projectName: string | undefined, templateName: Temp
   // Get available templates from the registry
   const availableTemplates = getAvailableTemplates();
 
-  let template: Template | undefined;
+  let template: TemplateType | undefined;
   if (templateName) {
     if (availableTemplates.includes(templateName)) {
       template = templateName;
@@ -153,7 +152,7 @@ async function createProject(projectName: string | undefined, templateName: Temp
       cancel('Operation cancelled');
       process.exit(0);
     }
-    template = result as Template;
+    template = result as TemplateType;
   }
 
   if (!template) {
