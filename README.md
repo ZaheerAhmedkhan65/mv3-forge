@@ -194,6 +194,122 @@ pnpm build --filter=@mv3-forge/cli
 pnpm dev --filter=@mv3-forge/core
 ```
 
+## CLI Commands
+
+### Available Commands
+
+| Command | Description |
+|---------|-------------|
+| `mv3-forge new` | Create a new extension project |
+| `mv3-forge dev` | Start development server |
+| `mv3-forge build` | Build the extension |
+| `mv3-forge zip` | Package extension as ZIP |
+| `mv3-forge release` | Create a release |
+| `mv3-forge publish` | Publish to npm |
+| `mv3-forge doctor` | Diagnose issues |
+| `mv3-forge lint` | Run linter |
+| `mv3-forge test` | Run tests |
+
+### Command Details
+
+#### Create a New Extension
+
+```bash
+# Interactive mode
+npx mv3-forge new
+
+# With project name
+npx mv3-forge new my-extension
+
+# With specific template
+npx mv3-forge new my-extension --template react
+npx mv3-forge new my-extension --template vanilla
+```
+
+#### Development
+
+```bash
+# Start development server with hot reload
+npx mv3-forge dev
+
+# With custom port
+npx mv3-forge dev --port 3000
+```
+
+#### Build
+
+```bash
+# Build for production
+npx mv3-forge build
+
+# Build in specific mode
+npx mv3-forge build --mode staging
+npx mv3-forge build --mode development
+```
+
+#### Package
+
+```bash
+# Create ZIP package
+npx mv3-forge zip
+
+# With custom output path
+npx mv3-forge zip --output ./dist/extension.zip
+```
+
+#### Release
+
+```bash
+# Create a new release
+npx mv3-forge release
+
+# Create pre-release
+npx mv3-forge release --pre-release beta
+npx mv3-forge release --pre-release alpha
+npx mv3-forge release --pre-release rc
+```
+
+#### Publish
+
+```bash
+# Publish extension to stores
+npx mv3-forge publish
+
+# Publish to specific stores
+npx mv3-forge publish --chrome
+npx mv3-forge publish --addons
+```
+
+#### Diagnostics
+
+```bash
+# Run diagnostics on your project
+npx mv3-forge doctor
+```
+
+#### Linting
+
+```bash
+# Run linter
+npx mv3-forge lint
+
+# Auto-fix issues
+npx mv3-forge lint --fix
+```
+
+#### Testing
+
+```bash
+# Run tests
+npx mv3-forge test
+
+# Watch mode
+npx mv3-forge test --watch
+
+# End-to-end tests
+npx mv3-forge test --e2e
+```
+
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
