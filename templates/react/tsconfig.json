@@ -9,8 +9,7 @@
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "lib": ["ES2022", "DOM"],
-    "types": ["node"],
-    "jsx": "react-jsx"
+    "types": ["node"]
   },
   "include": ["src/**/*", "*.ts", "*.json"],
   "exclude": ["node_modules"]
