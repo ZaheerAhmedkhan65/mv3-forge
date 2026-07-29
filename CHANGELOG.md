@@ -14,6 +14,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated version from 0.1.9 to 0.1.10 across all packages
 - Updated CLI version in source code
 
+### Fixed
+
+- Template resolution bug when installed globally via npm - `getTemplatesDir()` now properly resolves templates from `dist/../templates`
+
 ## [0.1.8] - 2026-27-07
 
 ### Added
