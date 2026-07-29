@@ -1,6 +1,6 @@
 {
     "name": "@mv3-forge/testing",
-    "version": "0.1.11",
+    "version": "0.1.12",
     "description": "Testing utilities for mv3-forge (reserved for future milestones)",
     "main": "./dist/index.js",
     "module": "./dist/index.js",

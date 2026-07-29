@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.12] - 2026-29-07
+
+### Fixed
+
+- Generated projects no longer depend on unpublished `@mv3-forge/*` packages - templates are now self-contained with inline manifest and vite config
+
 ## [0.1.11] - 2026-29-07
 
 ### Fixed

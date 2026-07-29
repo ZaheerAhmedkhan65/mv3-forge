@@ -1,9 +1,8 @@
-import { defineManifest } from '@mv3-forge/core';
-
-export default defineManifest({
+export default {
   name: '{{projectName}}',
   description: '{{projectDescription}}',
   version: '0.1.0',
+  manifest_version: 3,
   icons: {
     '16': 'src/icons/icon16.png',
     '32': 'src/icons/icon32.png',
@@ -27,4 +26,4 @@ export default defineManifest({
   ],
   permissions: ['storage', 'activeTab'],
   host_permissions: ['<all_urls>'],
-});
+};

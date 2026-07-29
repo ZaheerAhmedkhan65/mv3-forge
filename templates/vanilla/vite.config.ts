@@ -1,6 +1,5 @@
 import { defineConfig } from 'vite';
 import { resolve } from 'path';
-import { extensionPlugin } from '@mv3-forge/vite-plugin';
 
 export default defineConfig({
   base: './',
@@ -21,13 +20,6 @@ export default defineConfig({
       },
     },
   },
-  plugins: extensionPlugin({
-    manifestPath: resolve(__dirname, 'src/manifest.ts'),
-    iconsPath: resolve(__dirname, 'src/icons'),
-    htmlEntrypoints: ['popup.html', 'index.html'],
-    serveDevPage: true,
-    devPagePath: resolve(__dirname, 'index.html'),
-  }),
   server: {
     hmr: false,
     open: '/',
