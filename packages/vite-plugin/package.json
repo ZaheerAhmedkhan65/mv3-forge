@@ -1,6 +1,6 @@
 {
     "name": "@mv3-forge/vite-plugin",
-    "version": "0.1.11",
+    "version": "0.1.12",
     "description": "Vite plugin for mv3-forge browser extension development",
     "main": "./dist/index.js",
     "module": "./dist/index.js",
@@ -27,5 +27,8 @@
     },
     "dependencies": {
         "vite": "^5.0.0"
+    },
+    "publishConfig": {
+        "access": "public"
     }
 }
