@@ -20,9 +20,9 @@
     "@types/react-dom": "^18.0.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "@mv3-forge/vite-plugin": "^0.1.9"
+    "@mv3-forge/vite-plugin": "^0.1.10"
   },
   "dependencies": {
-    "@mv3-forge/core": "^0.1.9"
+    "@mv3-forge/core": "^0.1.10"
   }
 }
