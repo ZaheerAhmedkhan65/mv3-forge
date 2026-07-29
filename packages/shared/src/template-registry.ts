@@ -79,44 +79,44 @@ export function isTemplateAvailable(template: TemplateType): boolean {
  */
 export function getTemplatesDir(): string {
   try {
-    // In production (bundled npm package): dist/index.js -> templates (1 level up)
-    // During development (monorepo): use root templates directory
+    // Get the current module's directory
     const currentFilePath = new URL(import.meta.url).pathname;
     const __dirname = dirname(currentFilePath);
 
-    // Check if we're in the CLI package dist or shared/core packages
-    const cliDistIndex = __dirname.indexOf('packages/cli/dist');
-    const coreDistIndex = __dirname.indexOf('packages/core/dist');
-    const sharedDistIndex = __dirname.indexOf('packages/shared/dist');
+    // CASE 1: Monorepo development (packages/cli/dist, packages/core/dist, packages/shared/dist)
+    // Navigate up to find pnpm-workspace.yaml, then use root templates/
+    const isDevMode =
+      __dirname.includes('/packages/cli/dist') ||
+      __dirname.includes('/packages/core/dist') ||
+      __dirname.includes('/packages/shared/dist');
 
-    if (cliDistIndex !== -1 || coreDistIndex !== -1 || sharedDistIndex !== -1) {
-      // We're in a package's dist directory
-      // Navigate up to find monorepo root
+    if (isDevMode) {
       let templatesDir = __dirname;
       while (!existsSync(join(templatesDir, 'pnpm-workspace.yaml'))) {
-        templatesDir = dirname(templatesDir);
+        const parent = dirname(templatesDir);
+        if (parent === templatesDir) break; // reached root
+        templatesDir = parent;
       }
-      return join(templatesDir, 'templates');
+      const rootTemplates = join(templatesDir, 'templates');
+      if (existsSync(rootTemplates)) {
+        return rootTemplates;
+      }
     }
 
-    // For bundled templates (after npm publish)
-    // CLI is built to packages/cli/dist/index.js
-    // Templates are at packages/cli/templates
-    const cliDir = join(__dirname, '..', '..', '..', 'packages', 'cli');
-    const bundledTemplatesPath = join(cliDir, 'templates');
-
-    if (existsSync(bundledTemplatesPath)) {
-      return bundledTemplatesPath;
-    }
-
-    // Fallback: try monorepo templates
-    const monorepoTemplates = join(__dirname, '..', '..', '..', 'templates');
-    if (existsSync(monorepoTemplates)) {
-      return monorepoTemplates;
+    // CASE 2: npm global/local install (dist/index.js -> templates/)
+    // When installed via npm, the structure is:
+    //   mv3-forge/
+    //     dist/index.js     (built CLI)
+    //     templates/         (bundled templates)
+    // So templates is one level up from dist/
+    const templatesBundled = join(__dirname, '..', 'templates');
+    if (existsSync(templatesBundled) && statSync(templatesBundled).isDirectory()) {
+      return templatesBundled;
     }
   } catch {
-    // Fallback to current working directory (for development)
+    // Fallback to current working directory
   }
+
   return join(process.cwd(), 'templates');
 }
 
